@@ -1,19 +1,13 @@
 import { useState } from 'react';
 import { ShoppingCart, X, Trash2 } from 'lucide-react';
+import { parsePrice } from '../../utils/helpers';
 import './CartWidget.css';
 
 export default function CartWidget({ cart, onEliminar }) {
   const [dropdownAbierto, setDropdownAbierto] = useState(false);
 
-  // Cantidad total de productos en el carrito para mostrar en la burbuja
   const totalQty = cart.reduce((acc, item) => acc + item.qty, 0);
 
-  // Convierto el precio en formato string ($4.500) a un valor numerico para operar matematicamente
-  const parsePrice = (priceStr) => {
-    return Number(priceStr.replace(/[^0-9]/g, ''));
-  };
-
-  // Calculo del subtotal dinámico sumando cantidades por precio unitario
   const subtotal = cart.reduce(
     (acc, item) => acc + parsePrice(item.price) * item.qty,
     0
@@ -21,8 +15,8 @@ export default function CartWidget({ cart, onEliminar }) {
 
   return (
     <div className="cart-widget">
-      <button 
-        className="cart-btn" 
+      <button
+        className="cart-btn"
         onClick={() => setDropdownAbierto(!dropdownAbierto)}
         aria-label="Carrito de compras"
       >
@@ -34,8 +28,8 @@ export default function CartWidget({ cart, onEliminar }) {
         <div className="cart-dropdown">
           <div className="cart-dropdown-header">
             <h4>Tu Carrito</h4>
-            <button 
-              onClick={() => setDropdownAbierto(false)} 
+            <button
+              onClick={() => setDropdownAbierto(false)}
               aria-label="Cerrar"
               className="cart-close-btn"
             >
@@ -59,7 +53,7 @@ export default function CartWidget({ cart, onEliminar }) {
                         {item.qty} x {item.price}
                       </span>
                     </div>
-                    <button 
+                    <button
                       onClick={() => onEliminar(item.id)}
                       className="cart-item-remove-btn"
                       aria-label={`Eliminar ${item.name}`}

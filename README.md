@@ -1,33 +1,72 @@
-# Esencial - E-Commerce (Entrega 1)
+# Esencial — E-Commerce (Entrega 1 + 2)
 
-Esencial es una tienda online dedicada a la venta de objetos cotidianos de diseño simple, funcional y sustentable. Este proyecto representa la primera entrega del curso de React en CoderHouse.
+Tienda online de objetos cotidianos con diseño consciente. Proyecto React — CoderHouse.
 
-## 🛠️ Tecnologías Utilizadas
+## Checklist consignas
 
-- **React** (v19)
-- **Vite** (para bundler y dev-server rápido)
-- **Lucide React** (para iconos vectoriales fluidos)
-- **CSS Vanilla** (diseño adaptativo y personalizado sin plantillas pre-armadas)
+### Entrega 1 — Crea tu landing
+- [x] `NavBar`, `CartWidget`, `ItemListContainer` en `/components`
+- [x] `NavBar` e `ItemListContainer` renderizados en `App`
+- [x] `CartWidget` renderizado dentro de `NavBar`
+- [x] Prop `greeting` en `ItemListContainer` (`"¡Bienvenidos a Esencial!"`)
 
-## 📦 Componentes Implementados
+### Entrega 2 — Navega las rutas
+- [x] React Router con rutas: `/`, `/productos`, `/category/:categoryId`, `/item/:itemId`, `*`
+- [x] Contenedores (`ItemListContainer`, `ItemDetailContainer`) con estado y efectos
+- [x] Presentacionales (`ItemList`, `Item`, `ItemDetail`, `ItemCount`)
+- [x] Fetch async con Promises + delay en `products.js`
+- [x] `map()` + `key` en listados
+- [x] `useParams()` en contenedores
+- [x] `useEffect` con dependencia de URL
+- [x] Una sola ruta dinámica por categoría (`/category/:categoryId`)
+- [x] Ruta 404 (`path="*"`)
+- [x] `ItemCount` dentro de `ItemDetail`
 
-1. **NavBar**: Barra de navegación superior con logo, enlaces responsivos y Widget de Carrito.
-2. **CartWidget**: Widget de carrito que maneja un estado de productos, permite previsualizar el subtotal y eliminar artículos.
-3. **ItemListContainer**: Contenedor principal que renderiza el catálogo inicial y las fichas de productos con modales de detalles técnicos.
+## Rutas
 
-## 💾 Persistencia
+| Ruta | Vista |
+|------|-------|
+| `/` | Home |
+| `/productos` | Catálogo + prop greeting |
+| `/category/:categoryId` | Catálogo filtrado |
+| `/item/:itemId` | Detalle de producto |
+| `/nosotros` | Sobre la tienda |
+| `/contacto` | Contacto |
+| `*` | 404 |
 
-- Se utiliza `localStorage` para guardar el estado del carrito de compras y recuperarlo al recargar la página.
+## Scripts
 
-## 🚀 Scripts de Desarrollo
-
-Para iniciar el proyecto en modo local:
 ```bash
 npm install
 npm run dev
+npm run build
+npm run lint
 ```
 
-Para compilar la aplicación para producción:
-```bash
-npm run build
+## Estructura
+
+```text
+src/
+├── components/
+│   ├── NavBar/
+│   ├── CartWidget/
+│   ├── ItemListContainer/
+│   ├── ItemList/
+│   ├── Item/
+│   ├── ItemDetailContainer/
+│   ├── ItemDetail/
+│   ├── ItemCount/
+│   ├── PageHero/
+│   ├── Breadcrumbs/
+│   ├── Skeleton/
+│   ├── EmptyState/
+│   ├── ScrollToTop/
+│   ├── RelatedItem/
+│   ├── Home/
+│   ├── Nosotros/
+│   ├── Contacto/
+│   └── NotFound/
+├── data/products.js
+├── utils/helpers.js
+└── App.jsx
 ```

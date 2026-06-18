@@ -1,51 +1,105 @@
 import { useState } from 'react';
-import { Menu, X } from 'lucide-react';
+import { Link, NavLink, useLocation } from 'react-router-dom';
+import { Menu, X, ChevronDown } from 'lucide-react';
+import { CATEGORIES } from '../../utils/helpers';
 import CartWidget from '../CartWidget/CartWidget';
 import './NavBar.css';
 
 export default function NavBar({ cart, onEliminar }) {
   const [menuAbierto, setMenuAbierto] = useState(false);
-  const [proximamente, setProximamente] = useState(null);
+  const [productosAbierto, setProductosAbierto] = useState(false);
+  const location = useLocation();
 
-  // Manejo de la navegación y el aviso de secciones disponibles próximamente
-  const manejarProximamente = (seccion, e) => {
-    e.preventDefault();
-    setProximamente(seccion);
+  const cerrarMenu = () => {
     setMenuAbierto(false);
+    setProductosAbierto(false);
+  };
+
+  const isProductosActive =
+    location.pathname.startsWith('/productos') ||
+    location.pathname.startsWith('/category') ||
+    location.pathname.startsWith('/item');
+
+  const toggleProductosMobile = (e) => {
+    e.preventDefault();
+    setProductosAbierto((prev) => !prev);
   };
 
   return (
     <header className="header">
       <div className="container header-container">
-        <a href="/" className="logo">
+        <Link to="/" className="logo" onClick={cerrarMenu}>
           ESENCIAL
-        </a>
+        </Link>
 
         <nav className={`nav ${menuAbierto ? 'open' : ''}`}>
           <ul className="nav-links">
             <li>
-              <a href="#productos" onClick={() => setMenuAbierto(false)}>
-                Productos
-              </a>
+              <NavLink to="/" end onClick={cerrarMenu}>
+                Inicio
+              </NavLink>
+            </li>
+            <li
+              className={`nav-dropdown ${productosAbierto ? 'mobile-open' : ''}`}
+            >
+              <div className="nav-dropdown-trigger-wrap">
+                <NavLink
+                  to="/productos"
+                  className={isProductosActive ? 'active' : undefined}
+                  onClick={cerrarMenu}
+                >
+                  Productos
+                </NavLink>
+                <button
+                  type="button"
+                  className="nav-dropdown-toggle"
+                  onClick={toggleProductosMobile}
+                  aria-label="Abrir categorías de productos"
+                  aria-expanded={productosAbierto}
+                >
+                  <ChevronDown
+                    size={14}
+                    className={productosAbierto ? 'rotated' : ''}
+                  />
+                </button>
+              </div>
+              <ul className="nav-dropdown-menu">
+                <li>
+                  <Link to="/productos" onClick={cerrarMenu}>
+                    Ver todos los productos
+                  </Link>
+                </li>
+                {/* Una sola ruta /category/:categoryId para todas las categorías */}
+                {CATEGORIES.map((category) => (
+                  <li key={category.id}>
+                    <Link
+                      to={`/category/${category.id}`}
+                      onClick={cerrarMenu}
+                    >
+                      {category.displayName}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
             </li>
             <li>
-              <a href="#nosotros" onClick={(e) => manejarProximamente('Nosotros', e)}>
+              <NavLink to="/nosotros" onClick={cerrarMenu}>
                 Nosotros
-              </a>
+              </NavLink>
             </li>
             <li>
-              <a href="#contacto" onClick={(e) => manejarProximamente('Contacto', e)}>
+              <NavLink to="/contacto" onClick={cerrarMenu}>
                 Contacto
-              </a>
+              </NavLink>
             </li>
           </ul>
         </nav>
 
         <div className="header-actions">
           <CartWidget cart={cart} onEliminar={onEliminar} />
-          
-          <button 
-            className="menu-toggle" 
+
+          <button
+            className="menu-toggle"
             onClick={() => setMenuAbierto(!menuAbierto)}
             aria-label="Menú"
           >
@@ -53,27 +107,6 @@ export default function NavBar({ cart, onEliminar }) {
           </button>
         </div>
       </div>
-
-      {proximamente && (
-        <div className="proximamente-overlay" onClick={() => setProximamente(null)}>
-          <div className="proximamente-modal" onClick={(e) => e.stopPropagation()}>
-            <button 
-              className="proximamente-close" 
-              onClick={() => setProximamente(null)}
-              aria-label="Cerrar modal"
-            >
-              <X size={18} />
-            </button>
-            <h4>Sección: {proximamente}</h4>
-            <p>
-              Estamos trabajando en esta sección. Estará disponible próximamente en las siguientes entregas del proyecto.
-            </p>
-            <button className="btn-entendido" onClick={() => setProximamente(null)}>
-              Entendido
-            </button>
-          </div>
-        </div>
-      )}
     </header>
   );
 }

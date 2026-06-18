@@ -1,0 +1,69 @@
+.item-count-container {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 100%;
+  margin-top: 16px;
+}
+.item-count-controls {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border: 1px solid var(--border-color);
+  background-color: var(--bg-secondary);
+  height: 44px;
+  width: 100%;
+}
+.count-btn {
+  width: 44px;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  font-weight: 500;
+  color: var(--text-primary);
+  transition: background-color 0.15s ease, color 0.15s ease;
+  user-select: none;
+}
+.count-btn:hover:not(:disabled) {
+  background-color: var(--bg-tertiary);
+  color: #ffffff;
+}
+.count-btn:disabled {
+  color: var(--bg-tertiary);
+  cursor: not-allowed;
+}
+.count-number {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-primary);
+  min-width: 30px;
+  text-align: center;
+}
+.add-to-cart-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 44px;
+  background-color: var(--accent-color);
+  color: #ffffff;
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  border: 1px solid var(--accent-color);
+  transition: all 0.15s ease;
+}
+.add-to-cart-btn:hover:not(:disabled) {
+  background-color: transparent;
+  color: var(--accent-color);
+  border-color: var(--accent-color);
+}
+.add-to-cart-btn:disabled {
+  background-color: var(--bg-tertiary);
+  color: var(--text-secondary);
+  border-color: var(--border-color);
+  cursor: not-allowed;
+}

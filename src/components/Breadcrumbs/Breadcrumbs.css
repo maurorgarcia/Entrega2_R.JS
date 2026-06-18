@@ -1,0 +1,38 @@
+.breadcrumbs {
+  margin-bottom: 32px;
+}
+.breadcrumbs-list {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  list-style: none;
+  gap: 4px;
+}
+.breadcrumbs-item {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+.breadcrumbs-separator {
+  color: var(--text-secondary);
+  opacity: 0.6;
+  flex-shrink: 0;
+}
+.breadcrumbs-link {
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  transition: color 0.15s ease;
+}
+.breadcrumbs-link:hover {
+  color: var(--accent-color);
+}
+.breadcrumbs-current {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-primary);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
